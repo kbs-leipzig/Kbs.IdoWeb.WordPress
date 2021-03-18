@@ -1,0 +1,478 @@
+/*** WP GALLERY ***/
+.columns-2 > ul > li {
+	width: 49.66%;
+}
+.columns-3 > ul > li {
+	width: 33%;
+}
+.columns-4 > ul > li {
+	width: 24.66%;
+}
+.columns-5 > ul > li {
+	width: 19.66%;
+}
+@media only screen and (max-width: 768px) {
+  [class*="columns-"] > ul > li {
+	width: 100%;
+    margin-bottom: 5px;		
+  }
+}
+
+.blocks-gallery-grid {
+	display: inline-flex;
+	flex-flow: wrap;
+	justify-content: space-between;
+	width:100%;
+}
+.blocks-gallery-grid > li > figure > a > img {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+    object-position: initial;
+}
+
+@media only screen and (max-width: 768px) {
+  .blocks-gallery-grid > li > figure > a > img {
+    height: 200px;
+  }
+}
+.blocks-gallery-grid > li > figure > a > img.image_bottom {
+    object-position: bottom;
+}
+
+figure > a.swipeLink > img:hover, figure > a.swipeLink > img:focus, figure > a.swipeLink > img:active {
+	box-shadow: 0px 0px 5px 5px rgba(164, 170, 0, 0.2);
+}
+
+figure > a.swipeLink {
+    cursor: zoom-in;
+}
+
+/** split for steckbrief pages **/
+h1.title_substitute {
+	font-size: 4rem;
+	text-transform: none;
+	margin-bottom: 3rem;
+}
+.steckbrief_wrapper .blocks-gallery-grid {
+    display: inline-flex;
+    flex-flow: wrap;
+    justify-content: start;
+}
+.steckbrief_wrapper.collapsed {
+	overflow-y:hidden;
+}
+
+.steckbrief_wrapper > ul > li {
+	font-size: 2rem;
+	line-height: 3rem;
+}
+
+.steckbrief_wrapper .columns-3 > ul > li {
+    width: 33%;
+    padding: 5px;
+    float: left;
+    min-width: 200px;
+}
+.steckbrief_wrapper .columns-4 > ul > li {
+    width: 25%;
+    padding: 5px;
+    float: left;
+    min-width: 200px;
+}
+
+.steckbrief_wrapper .blocks-gallery-grid > li > figure > a > img {
+    min-height: 250px;
+    width: 100%;
+    object-fit: contain;
+    object-position: initial;
+}
+
+.steckbrief_table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+.steckbrief_table.no_head {
+	border-top: 5px solid rgb(167,170,0);
+}
+
+.steckbrief_table td, .steckbrief_table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  vertical-align: top;
+}
+
+.steckbrief_table tr:nth-child(even){background-color: rgba(167,170,0,0.2);}
+
+.steckbrief_table tr:hover {background-color: #ddd;}
+
+.steckbrief_table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgb(167,170,0);
+  color: white;
+}
+.steckbrief_table > tbody > tr > td:first-child {
+    width: 45%;
+    font-weight: 700;
+}
+
+.steckbrief_table > tbody > tr > td > ul > li {
+	list-style: inside;
+}
+
+/* for mobile disable guttenberg column flex-basis */
+@media (max-width: 992px) {
+	.wp-block-columns>.wp-block-column {
+		min-width: 100%;
+	}
+}
+
+.wp-block-gallery, .wp-block-image {
+	margin-bottom: 1rem;
+}
+
+/* Page Title Image */
+/*might be removed when graphics updated*/
+@media (max-width: 768px) {
+	.page-title-image {
+    	top: -3rem;	
+	}
+}
+@media only screen and (max-width: 768px) {
+	.form-label-outside:not(.col-sm-12) {
+		color: transparent!important;
+	}
+}
+/* Single Image */
+.wp-block-image > img {
+	max-height: 300px;
+}
+
+@media screen and (max-width: 767px) {
+	.wp-block-image > a > img {
+		width: 100%;
+    	object-fit: scale-down;
+    	height: auto;		
+	}
+}
+
+/** menu styling **/
+@media (min-width: 992px){
+	
+}
+
+/** GENERAL BLOCK LAYOUT **/
+.range {
+	position: relative;
+}
+.post.page > * {
+    margin-bottom: 1.5rem;
+}
+.wp-block-columns {
+	display: inline-flex;
+	flex-flow: wrap;	
+}
+.wp-block-column {
+	margin-bottom: 1rem;
+}
+.has-2-columns > .wp-block-column {
+	width: 50%;
+}
+.has-3-columns > .wp-block-column {
+	width: 33%;
+}
+.has-4-columns > .wp-block-column {
+	width: 25%;
+}
+.has-5-columns > .wp-block-column {
+	width: 20%;
+}
+
+/*** MISC ***/
+.page .range p {
+	font-size: 1.6rem;
+	line-height: 2.4rem;
+	text-align: justify;
+}
+
+.page .range h2 {
+	font-size: 2.2rem;
+	line-height: 2.2rem;
+    margin-bottom: 1.2rem;
+    margin-top: 2rem;
+}
+
+.page .range h2.page-title-heading {
+	font-size: 4rem;
+	line-height: normal;
+}
+
+figcaption, figcaption > * {
+    margin: 5px 0;
+    font-size: 1.4rem!important;
+    line-height: 1.2;
+}
+
+/** PhotoSwipe style fix **/
+.pswp__button--arrow--left:before, .pswp__button--arrow--right:before {
+	transform: scale(2);
+}
+
+/** PhotoSwipe Slideshow Custom **/
+.pswp__caption__cent {
+    margin-left: 10px;
+    margin-bottom: 10px!important;
+}
+
+.pswp__caption__cent, .pswp__caption__cent>p {
+    color: #bbb;
+}
+.pswp__caption__cent>p {
+    margin: 0;
+}
+
+/** multi-color ERleben .. **/
+
+.er {color: rgb(167,170,0);}
+
+.erl {color: #7c3e00;}
+
+input.form-control  {
+	height: auto;
+}
+span.form-control  {
+	height: auto;
+}
+.required {
+			background: OldLace!important;
+}
+.required > span.k-dropdown-wrap{
+			background: OldLace!important;
+}
+::placeholder {
+	margin:1em;
+}
+/* label.form-label-outside {
+	display: contents;
+} */
+
+.label {
+	background-color: #f9f9f9;
+	border: 0 none;
+	font-size: 0.75em;
+	width: 200px;
+	float: left;
+	margin-top: 3px;
+	color: #7d7d7d;
+	font-style: italic;
+}
+.confirm {
+	padding-top: 1em;
+}
+
+.valid {
+	color: green;
+}
+
+.invalid {
+	color: #a94442;
+	border-color: #a94442;
+}
+
+.k-invalid {
+	border-color: #a94442;
+}
+
+textarea {
+	padding: 10px!important;
+}
+
+span.k-widget.k-tooltip-validation {
+	display: inline-block;
+	width: 300px;
+	text-align: left;
+	border: 0;
+	padding: 0;
+	margin: 0;
+	background: none;
+	box-shadow: none;
+	color: #a94442;
+}
+
+.k-tooltip-validation .k-warning {
+	display: none;
+}
+.k-listview.k-widget{
+	background-color: initial;
+	border-style: initial;
+}
+.k-autocomplete{
+    border-color: #dbdbdb!important;
+}
+.k-radio-label::before{
+  width: 16px;
+  height: 16px;
+}
+
+
+
+/** template Klasse **/
+.jumpLinkContainer>.btn:hover, .jumpLinkContainer>.btn:focus, .jumpLinkContainer>.btn.focus {
+    color: inherit;
+    text-decoration: none;
+}
+.jumpLinkContainer>.btn {
+	font-size: 1.2rem;
+	white-space: pre-wrap;
+	padding: 1.2rem;
+}
+.jumpLinkContainer {
+	padding: 2px;
+	border: 2px solid darkgrey;
+	max-width: 300px;
+	height: fit-content;
+}
+
+@media (min-width: 768px) {
+	.jumpLinkContainer {
+		position: absolute;
+		right: 15px;
+		bottom: -50%;
+		padding: 2px;
+		border: 2px solid darkgrey;
+	}
+	.jumpLinkContainer>.btn {
+		font-size: 1.4rem;
+		padding: 1.7rem;
+	}
+
+}
+.taxon_details {
+	padding-bottom: 10px;
+}
+.taxon_details > div {
+	max-width: 100%;
+}
+.taxon_details > div > button.btn {
+    font-size: 1.4rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1.2rem;
+    display: block;
+    margin-right: auto;
+    width: 70%;
+    white-space: normal;
+}
+@media (max-width: 767px) {
+	.taxonDetails_short {
+		display: block;
+	}
+	.taxonDetails_long {
+		display: none;
+	}
+	.taxon_details > div > button.btn {
+		width: 50%;
+	}
+}
+
+@media (min-width: 768px) {
+	.taxonDetails_short {
+		display: none;
+	}
+	.taxonDetails_long {
+		display: block;
+	}
+}
+
+/** Fundmeldung **/
+.image_wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+	justify-content: flex-start; 
+}
+
+div.image_wrapper figure.table_image {
+    max-height: 25px;
+    width: 20%;
+    padding: 0;
+}
+
+figure.table_image > a > img {
+    width: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+
+/*-- use below */
+span.er-style-first {
+    color: rgb(167,170,0)!important;
+}
+span.er-style-last {
+	color: #7C3E00!important;
+}
+
+
+/** Fundmeldungen **/
+#imageListView {
+ display:flex;
+ align-items:center;
+ justify-content:flex-start;
+ padding: 10px;
+ background-color: #EFEFEF;
+}
+#imageListView>.image {
+	font-size:1.4rem;
+	background-color: #fff;
+	margin: 10px;
+}
+#imageListView>.image>img{
+ height:150px;
+}
+#imageListView>.image ul{
+    line-height: 1.6;
+    margin-top: 5px;
+}
+
+/**kendo overwrites**/
+.k-grid table {
+	font-size:1.2rem;
+}
+
+.k-grid-header, .k-grid-header .k-header, .k-pager-wrap, .k-pager-numbers .k-state-selected, .k-grid-footer, .k-grid-footer td, .km-pane-wrapper .k-grid-header .k-header
+{
+ background-color: #efefef;	
+ max-height:50px!important;
+ padding: 0.6em;
+}
+
+.k-grid .k-grid-header .k-header {
+ white-space: pre!important;
+}
+
+.k-grid-edit-row {
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#9dd53a+0,a1d54f+50,80c217+51,7cbc0a+100;Green+Gloss+%231 */
+	background: #ececec!important;
+}
+
+.k-primary, .k-overflow-container .k-primary {
+	background-color: rgb(167,170,0)!important;
+	color: #fff!important;
+}
+
+.fixed-header {
+        top:75px;
+        position:fixed;
+        width:auto;
+        z-index: 1;
+}
+
+.k-grid-content {
+    height: 50vh!important;
+}
