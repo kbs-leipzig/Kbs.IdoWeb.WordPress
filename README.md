@@ -1,61 +1,42 @@
-# bodentierhochvier.de / Kbs.IdoWeb.WordPress
+# BODENTIER hoch 4 - Kbs.IdoWeb.WordPress
 
-## 3. Abstract
-Kbs.IdoWeb.Wordpress can be integrated into a WordPress CMS installation as a WordPress Theme.
-It offers a collection of templates to create, edit and administer records and user accounts. Further it contains a User-friendly, intelligent, interactive identification keys feature to determine animals based on description keys.
-Data updates of the data can be done through a custom Dashboard Menu Entry "Bodentier Settings" which refreshes current data and also creates and deletes the pages to describe the animals ("Steckbriefe")
+## Inhaltsverzeichnis  
+- [Kurzbeschreibung](#Kurzbeschreibung)
+  - [Förderhinweis](#Förderhinweis)
+- [Installation](#Installation)
+- [Benutzung](#Benutzung)
+- [Credits](#Credits)
+- [Lizenz](#Lizenz)
 
-### Förderhinweis 
-This WordPress Theme is part of the project museum4punkt0 - Digital Strategies for the 
-Museum of the Future, sub-project [englischer Teilprojektname einfügen, gemäß 
-museum4punkt0-Website]. The project museum4punkt0 is funded by the Federal Government 
-Commissioner for Culture and the Media in accordance with a resolution issued by the German 
-Bundestag (Parliament of the Federal Republic of Germany). Further information: 
-www.museum4punkt0.de/en/
+## Kurzbeschreibung
+Kbs.IdoWeb.Wordpress kann als WordPress-Theme in eine WordPress-CMS-Installation integriert werden. Es bietet eine Sammlung von Vorlagen zum Erstellen, Bearbeiten und Verwalten von Datensätzen und Benutzerkonten. Weiterhin enthält es eine benutzerfreundliche, intelligente, interaktive Identifikationsschlüssel-Funktion zur Bestimmung von Tieren anhand von Beschreibungsschlüsseln.
+Die Aktualisierung der Daten kann über einen benutzerdefinierten Dashboard-Menüeintrag "Bodentier Settings" erfolgen, der die bestehenden Daten aktualisiert und auch die Seiten zur Beschreibung der Tiere ("Steckbriefe") erstellt und löscht.
 
-## 4. Installation 
-  1. Install WordPress  
-    https://wordpress.org/support/article/how-to-install-wordpress/
+### Förderhinweis
+Dieses WordPress Theme ist Teil des Projektes museum4punkt0 - Digitale Strategien für das Museum der Zukunft, Teilprojekt „BODENTIER hoch 4“. Das Projekt museum4punkt0 wird gefördert durch die  Beauftragte der Bundesregierung für Kultur und Medien aufgrund eines Beschlusses des Deutschen Bundestages.  
+Weitere Informationen: [www.museum4punkt0.de](https://www.museum4punkt0.de/)
+
+## 4. Installation
+  1. Install [WordPress](https://wordpress.org/support/article/how-to-install-wordpress/)
   2. Install Kbs.IdoWeb.WordPress as a Theme  
-    A tutorial on how to install WordPress Themes in general can be found here: https://www.wpbeginner.com/beginners-guide/how-to-install-a-wordpress-theme/
+    *A tutorial on how to install WordPress Themes in general can be found [here](https://www.wpbeginner.com/beginners-guide/how-to-install-a-wordpress-theme/)*
   3. Optional: install other plugins to raise usability (Internal Link Juicer, Polylang, etc.)    
 
-## 5. Benutzung / Usage 
-After the succesful installation of the Kbs.IdoWeb.WordPress Theme, the WordPress instance can be used like any regular WordPress installation.
-For updates via "Bodentier Settings" one needs to call to a database API to generate the appropriate data output (cf. Kbs.IdoWeb.IdoApi)
+## 5. Benutzung
+Nach der erfolgreichen Installation des Kbs.IdoWeb.WordPress-Themes kann die WordPress-Instanz wie jede normale WordPress-Installation verwendet werden.
+Für Updates über "Bodentier Settings" muss man eine Datenbank-API (siehe [Kbs.IdoWeb.Api](https://github.com/senckenberg/Kbs.IdoWeb.Api.git)) aufrufen, um die entsprechende Datenausgabe zu generieren.
 
-### Beschreiben Sie die Benutzung der Anwendung nach der Installation. Fügen Sie bestenfalls 
-Screenshots ein, um die Handhabung zu illustrieren. Auch Anforderungen an Geräte / 
-Ausstattung bzw. Systemvoraussetzungen für den Betrieb sollten hier genannt sein. Falls Ihre 
-Anwendung über ein Backend verfügt, sollte Ihnen ein Benutzerhandbuch für die BackendNutzung vorliegen. Stellen Sie dieses bitte auch zur Verfügung, indem Sie es (als PDF/A-3) im 
-Github-Repositorium hochladen und in der Readme-Datei darauf verlinken. Existiert zudem ein 
-Betriebskonzept, sollten Sie dieses von hier aus per Link zugänglich machen.  
-?
+## Credits  
+Auftraggeber/Rechteinhaber: [Senckenberg Museum für Naturkunde Görlitz](https://museumgoerlitz.senckenberg.de/)  
+Entwicklung: [Kunert Business Software GmbH](https://www.kbs-leipzig.de/kbsweb/)
 
-## 6. Beteiligung / Contributing (optional) 
-Geben Sie hier an, ob und in welcher Art man sich an Ihrer Programmierung beteiligen kann. 
-Detailinformationen werden in einer separaten Datei angelegt. Weitere Hinweise hierzu finden 
-Sie unter https://help.github.com/en/articles/setting-guidelines-for-repository-contributors 
-?
+## Lizenz  
+Kbs.IdoWeb.Wordpress Copyright © 2021 Senckenberg Museum für Naturkunde Görlitz; entwickelt von Kunert Business Software GmbH, im Rahmen des Verbundprojekts museum4punkt0.
 
-## 7. Credits 
-AuftraggeberInnen/RechteinhaberInnen (Name Ihrer Institution)
-UrheberInnen (Namen der beteiligten EntwicklerInnen oder Firma)3 Bereitstellung digitaler Anwendungen
-?
+Dieses Programm ist freie Software: Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder in Version 3 der Lizenz oder (nach Ihrer Wahl) in einer späteren Version.
 
-### Authors
-Kunert Business Software GmbH  
-Deutscher Platz 5c  
-04103 Leipzig  
-mail: info[at]kbs-leipzig.de  
-Germany  
-http://www.kbs-leipzig.de/kbsweb/  
+Dieses Programm wird in der Hoffnung verteilt, dass es nützlich ist, aber OHNE JEGLICHE GARANTIE; sogar ohne die stillschweigende Garantie der MARKTREIFE oder der EIGNUNG FÜR EINEN BESTIMMTEN ZWECK. Siehe die GNU General Public License für weitere Details.
 
+Sie sollten zusammen mit diesem Programm ein Exemplar der GNU General Public License erhalten haben. Falls nicht, siehe https://www.gnu.org/licenses/.
 
-## 8. Lizenz / License 
-Rechteangabe nach dem Schema: Copyright © Jahr, Institution / UrheberIn.
-Geben Sie hier an, unter welcher Lizenz der Quellcode / die Anwendung steht. Fügen Sie dabei 
-den Lizenztext direkt im Readme ein bzw. linken Sie zu dem zutreffenden Lizenztext. 
-Bitte fügen Sie ferner eine Liste der Lizenzen für wiederverwendete Programmteile Dritter der 
-Dokumentation hinzu.  
-?
+[![LICENSE.md](https://img.shields.io/badge/License-GPLv3-blue.svg)](/LICENSE.md)
