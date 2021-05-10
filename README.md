@@ -1,4 +1,4 @@
-# BODENTIER hoch 4 - Kbs.IdoWeb.WordPress
+# BODENTIERhoch4-Kbs.IdoWeb.WordPress
 
 ## Inhaltsverzeichnis  
 - [Kurzbeschreibung](#Kurzbeschreibung)
