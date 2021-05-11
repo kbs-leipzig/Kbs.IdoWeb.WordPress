@@ -27,7 +27,7 @@ Nach der erfolgreichen Installation des Kbs.IdoWeb.WordPress-Themes kann die Wor
 Für Updates über "Bodentier Settings" muss man eine Datenbank-API (siehe [Kbs.IdoWeb.Api](https://github.com/senckenberg/Kbs.IdoWeb.Api/)) aufrufen, um die entsprechende Datenausgabe zu generieren.
 
 ## Credits  
-Auftraggeber/Rechteinhaber: [Senckenberg Gesellschaft für Naturforschung] (https://senckenberg.de/)  
+Auftraggeber/Rechteinhaber: [Senckenberg Gesellschaft für Naturforschung](https://senckenberg.de/)  
 Entwicklung/Urheber: [Kunert Business Software GmbH] (https://www.kbs-leipzig.de/kbsweb/)
 
 ## Lizenz  
