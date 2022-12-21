@@ -74,8 +74,8 @@ $(document).ready(function () {
 				}
 				},
 				sort: {
-                	field: 'HabitatDate',
-                    dir: 'desc'
+                	field: 'ApprovalStateId',
+                    dir: 'asc'
 				},
 				schema:
 				{
@@ -104,13 +104,13 @@ $(document).ready(function () {
 				pageSize: 20
 			},
 			columns: [
-				{ field: "ObservationId", title: "FundId", editor:readOnly, editable: false, width:75 },
-				{ field: "ApprovalStateId", title: "Status", values: approval,  width: 100},
+				{ field: "ObservationId", title: "FundId", editor:readOnly, editable: false, width:75,sortable: {initialSortDirection: 'desc'} },
+				{ field: "ApprovalStateId", title: "Status", values: approval,  width: 100, sortable: {initialSortDirection: 'asc'} },
 				{ field: "ObservationComment", title: "Kommentar",  width: 150 },
 				{ field: "RegionId", title: "Bundesland", values:region,  width: 100, editable:false },
 				{ field: "LocalityName", title: "Fundort",  width: 125, editable:false },
 				{ field: "AuthorName", title: "Autor",  width: 125, editable:false },
-				{ field: "HabitatDate", title: "Funddatum", editable:false, format:"{0:dd.MM.yyyy}", width:125, sortable: {initialSortDirection: 'desc'} },
+				{ field: "HabitatDate", title: "Funddatum", editable:false, format:"{0:dd.MM.yyyy}", width:125},
 				{ field: "DiagnosisTypeId", title: "Bestimmungsmethode", values: diagnosis,  width: 300 },
 				{ field: "TaxonId", title: "Taxon", width: 220,
 				 template: function(dataItem) { return getTaxonByTaxonId(dataItem.TaxonId) }, editor: function (container, options) {

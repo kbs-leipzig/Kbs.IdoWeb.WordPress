@@ -134,7 +134,7 @@ $(document).ready(function () {
 			key: "Ao6t2AoyERNdB5Vn8O9j7UkVa65GKdBkAFXa5rB-CMym6RMQRIaRn2e9HrFqWyFt"
 		}],
 		markerActivate: function (e) {
-			$(e.marker.element.context).css("color", "orange")
+			$(e.marker.element.context).css("color", "rgb(210, 213, 110)")
 		},
 		pan: function (e) {
 			panning = true;
@@ -443,7 +443,13 @@ $(document).ready(function () {
   				success: function (data) {
   					if (data.succeeded) {
   						showMsg(status, "Daten erfolgreich gesendet!", true);
-  						window.location.href="/mein-bereich/fundorte/";
+						console.log(window.location.href);
+						if(window.location.href.indexOf("admin") < 0) {
+							window.location.href="/mein-bereich/fundorte/";							
+						} else {
+							window.location.href = "/administration/fundorte/";	
+						}
+						
   					}
   					else {
   						var errors = data.errors;

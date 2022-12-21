@@ -226,6 +226,10 @@ function createPageContent ($taxonDetail) {
 		$tempCont .= "<div class='steckbrief_wrapper'>";
 		$tempCont .= "<h2><strong>Allgemeines</strong></h2>";
 		$tempCont .= '<table class="steckbrief_table no_head"><thead></thead><tbody>';
+		if(!empty($general->I18nNames)){
+			$tempCont .= "<tr><td>Trivialname</td><td>".implode(', ', json_decode($general->I18nNames))."</td></tr>";
+			$added = true;
+		}
 		if(!empty($general->Diagnosis)){
 			$tempCont .= "<tr><td>Diagnose & &auml;hnliche Arten</td><td>".$general->Diagnosis."</td></tr>";
 			$added = true;
@@ -439,9 +443,8 @@ function search_page_by_title () {
 }
 
 function do_edapho_login () {
-	//TODO: replace through valid creds
-	$username = "";
-	$pw = "";
+	$username = "kbs.leipzig";
+	$pw = "iLovePasswords1!";
 		
 	$url = 'https://api.edaphobase.org/user/login/'.$username;
 	$ch = curl_init(); 

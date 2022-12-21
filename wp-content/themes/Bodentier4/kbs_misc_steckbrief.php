@@ -11,15 +11,6 @@
 			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/02_kbs_assets/js/kbs_map_phaeno/edapho_tk25_data.js"></script>
 			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/02_kbs_assets/js/kbs_map_phaeno/defaultQueryMap_v2.js"></script>
 			<script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/02_kbs_assets/js/kbs_map_phaeno/defaultQueryPhaeno.js"></script>
-			<style>
-				#evidenceMapWrapper {width: 66%;}
-				#mapButtonBar {width: 66%;}
-				#evidenceMap { width: 100%; height:100%; margin:0; }
-				#legendWrapper {left: 10px; top: -130px; position: relative; height: 0;}
-				#tk25HoverSpan {height:30px;}
-				#evidenceWrapper {display: flex; align-items: flex-start;}
-				#evidenceListWrapper { padding: 0 15px;}
-			</style>
         </header>
         <div class="entry-content">
 		<!-- RD Parallax-->
@@ -75,7 +66,6 @@
 				function mapYearToLegendStyle(feature, resolution) {
 					var incoming_yearString = feature.get("date");
 					if(typeof(incoming_yearString) !== 'undefined') {
-						console.log(incoming_yearString);
 						var y = incoming_yearString.split('/');
 						var year = y[y.length-1];
 						if(year >= legendYears[3]) {
@@ -85,7 +75,6 @@
 						} else if(year >= legendYears[1]) {
 							return evidence_styles["1901"];
 						} else if(year <= legendYears[0]) {
-							console.log("applying 1900");
 							return evidence_styles["1900"];
 						}						
 					}					
@@ -411,6 +400,8 @@
 						console.log("removing paragraph");
 						$("#content-wrapper > p:nth-child(1)").remove();
 					}
+				
+					
 				}
 
 				function ol_featureSelected(e) {
@@ -445,45 +436,50 @@
 					}
 				}
 
-		function refreshMap() {
-			console.log("refreshing map");
-			var params = evidenceLayer.getSource().getParams();
-			params.t = new Date().getMilliseconds();
-			params.taxonid = (parseInt($("#_selectedSpecies").val())<0?"0":$("#_selectedSpecies").val());
-			params.conceptid = (parseInt($("#_selectedSpecies").val())>0?"0":$("#_selectedSpecies").val().replace("-",""));
-			evidenceLayer.getSource().updateParams(params);
 
-			tk25Features.getSource().clear(true);
-			tk25Features.getSource().refresh();
-		}
+				function refreshMap() {
+					console.log("refreshing map");
+					var params = evidenceLayer.getSource().getParams();
+					params.t = new Date().getMilliseconds();
+					params.taxonid = (parseInt($("#_selectedSpecies").val())<0?"0":$("#_selectedSpecies").val());
+					params.conceptid = (parseInt($("#_selectedSpecies").val())>0?"0":$("#_selectedSpecies").val().replace("-",""));
+					evidenceLayer.getSource().updateParams(params);
 
-		$(document).ready(function () {
-			//Mehr & Weniger Buttons
-			$("#descriptions>table.steckbrief_table>tbody>tr:gt(4)").addClass('hidden');
-			$("#synonyms>table.steckbrief_table>tbody>tr:gt(2)").addClass('hidden');
-
-			//Map & Phaeno
-			var selectedSpecies = $("#_selectedSpecies").val();
-			if(typeof(selectedSpecies) !== 'undefined') {
-				defaultQueryPhaeno.query.taxon.positive.taxonById[0].id = selectedSpecies;
-				if(!initEvidenceMap()) {
-					//@TODO: improve selector thru html markup
-					$("#Verbreitungskarte").remove();
-					$("#evidenceMapWrapper").remove();
-					$("#content-wrapper>p").remove();
-					$("ol>li>a[href='#Verbreitungskarte']").parent('li').remove();
+					tk25Features.getSource().clear(true);
+					tk25Features.getSource().refresh();
 				}
-				if(!initPhaeno()) { 
-					$("#phaenogramView").remove();
-					$("ol>li>a[href='#Phänologie']").parent('li').remove();
-				}
-				if(!initPhaeno && !initEvidenceMap) {
-					$(".range>#content-wrapper").closest(".steckbrief_wrapper.section-30").remove();					
-				}
-			}
-			$("#content-wrapper>ol").show();
 
-		});
+				
+				$(document).ready(function () {
+
+					//Mehr & Weniger Buttons
+				$("#descriptions>table.steckbrief_table>tbody>tr:gt(4)").addClass('hidden');
+				$("#synonyms>table.steckbrief_table>tbody>tr:gt(2)").addClass('hidden');
+
+				//Map & Phaeno
+				var selectedSpecies = $("#_selectedSpecies").val();
+				if(typeof(selectedSpecies) !== 'undefined') {
+					defaultQueryPhaeno.query.taxon.positive.taxonById[0].id = selectedSpecies;
+					if(!initEvidenceMap()) {
+						//@TODO: improve selector thru html markup
+						$("#Verbreitungskarte").remove();
+						$("#evidenceMapWrapper").remove();
+						$("#content-wrapper>p").remove();
+						$("ol>li>a[href='#Verbreitungskarte']").parent('li').remove();
+					}
+					if(!initPhaeno()) { 
+						$("#phaenogramView").remove();
+						$("ol>li>a[href='#Phänologie']").parent('li').remove();
+					}
+					if(!initPhaeno && !initEvidenceMap) {
+						$(".range>#content-wrapper").closest(".steckbrief_wrapper.section-30").remove();					
+					}
+				}
+				$("#content-wrapper>ol").show();
+					if($("#Verbreitungskarte") && defaultQueryPhaeno.query.taxon.positive.taxonById[0].id) {
+						$("#Verbreitungskarte").parent("div").children("p").first().after("<p><a target='_blank' href='https://portal.edaphobase.org/?qxenv:action:extquery&qxenv:taxa:"+defaultQueryPhaeno.query.taxon.positive.taxonById[0].id+"'>Hier sind detaillierte Informationen zu finden.</a></p>");
+					}
+			});
 				
 		function initPhaeno() {
 			var phaeno = $("#phaenogrammChart").kendoChart({

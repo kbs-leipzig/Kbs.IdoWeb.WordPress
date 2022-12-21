@@ -101,7 +101,7 @@ $(document).ready(function () {
 						e.preventDefault();
 						var tr = $(e.target).closest("tr");
 						var data = this.dataItem(tr);
-						window.location.href="/erfassen/fundort?eventId="+data.id;
+						window.location.href="/erfassen/fundort?eventId="+data.id+"&isadmin=1";
 					}
 				}], width: 200
 			},

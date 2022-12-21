@@ -13,7 +13,7 @@
 }
 @media only screen and (max-width: 768px) {
   [class*="columns-"] > ul > li {
-	width: 100%;
+	width: 100%!important;
     margin-bottom: 5px;		
   }
 }
@@ -122,6 +122,28 @@ h1.title_substitute {
 .steckbrief_table > tbody > tr > td > ul > li {
 	list-style: inside;
 }
+
+#evidenceMapWrapper {width: 66%;}
+#mapButtonBar {width: 66%;}
+#evidenceMap { width: 100%; height:100%; margin:0; }
+#legendWrapper {left: 10px; top: -130px; position: relative; height: 0;}
+#tk25HoverSpan {height:30px;}
+#evidenceListWrapper { padding: 0 15px;}
+#evidenceWrapper {display: flex; align-items: flex-start; flex-direction:row; flex-wrap: wrap;}
+
+.range > .p-1.m-2 {
+	padding: 10px 15px;	
+}
+
+@media only screen and (max-width: 768px) {
+	#evidenceMapWrapper {
+		width: 100%!important;
+	}
+ 	#evidenceListWrapper {
+		width: 100%;
+	}
+}
+
 
 /* for mobile disable guttenberg column flex-basis */
 @media (max-width: 992px) {

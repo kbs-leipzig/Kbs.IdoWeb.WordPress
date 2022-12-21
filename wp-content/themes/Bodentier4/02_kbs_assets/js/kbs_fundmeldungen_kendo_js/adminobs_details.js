@@ -4,6 +4,9 @@ $(document).ready(function () {
 	var serviceRoot_cn = "https://corenet.kbs-leipzig.de/api";
 	var serviceRoot = "https://idoweb.bodentierhochvier.de/api";
 	const COMMENTREQUIREDOPTION = 5;
+	var t = setTimeout(function () {
+		$("#addObsToList").hide();		
+	},600);
 
 	/* Validierung */
 	var status = $("#status");
@@ -181,7 +184,7 @@ $(document).ready(function () {
 			key: "Ao6t2AoyERNdB5Vn8O9j7UkVa65GKdBkAFXa5rB-CMym6RMQRIaRn2e9HrFqWyFt"
 		}],
 		markerActivate: function (e) {
-			$(e.marker.element.context).css("color", "#D2D56E")
+			$(e.marker.element.context).css("color", "rgb(210, 213, 110)")
 		},
 		pan: function (e) {
 			panning = true;
@@ -993,10 +996,8 @@ function onRemove(e) {
 	/* Absenden */
 	function saveLocality() {
 		self = this;
-		if ($("#observationPlaceholder").html()) {
-			showMsg(obsStatus, "Bitte schließe zunächst die offene Fundmeldung ab.", false);
-		} else {
-			if (self.ObservationList.length != 0) {
+		addObsToList();
+		if (self.ObservationList.length != 0) {
 				var optimisedDS = optimiseDataStructure(self);
 				var olist = JSON.parse(optimisedDS);
 				olist.ObservationList.forEach(function(obs) {
@@ -1034,12 +1035,9 @@ function onRemove(e) {
 				var t = setTimeout (function () {
 					//window.location.href="/administration/funde/";								
 				},600);
-			} else {
-				showMsg(status, "Bitte lege einen Fund an.", false);
-				//or: save only Event?
-				return true;
-			}
-		}
+		} else {
+			showMsg(status, "Bitte prüfe die eingegeben Daten.", false);
+		}		
 	}
 	
 	/**Helper to move uploaded images**/
@@ -1334,9 +1332,12 @@ function onRemove(e) {
 						//vm.set("Image", obs.Image);
 						//console.log(obs.Image)
 						var imageList = obs.Image;
+						if(imageList) {
 						imageList.forEach(imgItem => 
 							imgItem.ToBeDeleted = false
 						);
+							
+						}
 						var dataSource = new kendo.data.DataSource({
                 			data: imageList,
 							model: {

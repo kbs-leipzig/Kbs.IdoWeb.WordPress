@@ -200,7 +200,7 @@
 						</div>
 						<div class="col-sm-12 col-xs-12 offset-top-20">
 							<div class="form-group">
-								<label for="observationComment" class="form-label form-label-outside">Kommentar an den Taxonexperten</label>
+								<label for="observationComment" class="form-label form-label-outside">Kommentar an die Taxonexpert*innen</label>
 								<textarea id="observationComment" type="text" placeholder="Kommentar an den Taxonexperten" data-bind="value:ObservationComment" class="form-control form-control-gray k-textbox" name="Kommentar"></textarea>
 							</div>
 						</div>

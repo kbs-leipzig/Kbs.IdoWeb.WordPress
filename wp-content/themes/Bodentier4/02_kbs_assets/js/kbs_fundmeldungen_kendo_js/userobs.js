@@ -1,7 +1,8 @@
 $(document).ready(function () {
 	//var serviceRoot = "https://corenet.kbs-leipzig.de/api";
 	var serviceRoot = "https://idoweb.bodentierhochvier.de/api";
-
+	var header;
+	
 	var getTable = async function(schema,type){
 		try {
 			var result = await $.ajax({
@@ -10,7 +11,6 @@ $(document).ready(function () {
 				crossDomain: true,
 				xhrFields: { withCredentials: true },
 			});
-			console.log(result);
 			return result;
 		} catch (err) {
 		}
@@ -28,8 +28,6 @@ $(document).ready(function () {
 		region = getLocalisation(region, "Region");
 		approval = approval.map(i => {i.text = i.ApprovalStateName; i.value=i.ApprovalStateId; return i;});
 		function getTaxonByTaxonId(taxonId){
-			console.log(taxonData);
-			console.log(taxonId);
 			var tName = taxonData.filter(t => t.TaxonId==taxonId);
 			if(typeof(tName[0]) !== 'undefined') {
 				var result = tName[0].TaxonName;
@@ -121,7 +119,7 @@ $(document).ready(function () {
 				{ field: "MaleCount", title: "M", format: "{0:d}",  width: 75 },
 				{ field: "FemaleCount", title: "W", format: "{0:d}",  width: 75 },
 				{ command: ["edit", "destroy"], width: 230 },
-				{ field: "ObservationId", title: "Bearbeiten", template: '<a href="/administration/details-zu-fundmeldung?oid=#=ObservationId#">Details</a>', width:75},
+				{ field: "ObservationId", title: "Bearbeiten", template: '<a href="/mein-bereich/meine-fundmeldung-details?oid=#=ObservationId#">Details</a>', width:75},
 				{
 					command: [{
 						iconClass: "k-icon k-i-edit",
@@ -152,9 +150,21 @@ $(document).ready(function () {
 			},
 		});
 		
-		      function onDataBound() {
-        var wrapper = this.wrapper,
+		function onDataBound() {
+        	var wrapper = this.wrapper,
             header = wrapper.find(".k-grid-header");
+			var grid = $("#grid").data("kendoGrid");
+            grid.tbody.find("tr[role='row']").each(function(){
+				var model = grid.dataItem(this);
+				if(model.ApprovalStateId > 1) {
+					$(this).find(".k-grid-edit").remove();
+					$(this).find(".k-grid-delete").remove();
+				}
+			});
+    		//resizeFixed();
+        	//$(window).resize(resizeFixed);
+        	//$(window).scroll(scrollFixed);
+		}
 
         function resizeFixed() {
           var paddingRight = parseInt(header.css("padding-right"));
@@ -172,15 +182,11 @@ $(document).ready(function () {
           }
         }
 
-        resizeFixed();
-        $(window).resize(resizeFixed);
-        $(window).scroll(scrollFixed);
-      }
 		
-		function readOnly(container, options) {
-			container.removeClass("k-edit-cell");
-			container.text("Nicht editierbar");
-      }
+	function readOnly(container, options) {
+		container.removeClass("k-edit-cell");
+		container.text("Nicht editierbar");
+	}
 		
 	})
 });

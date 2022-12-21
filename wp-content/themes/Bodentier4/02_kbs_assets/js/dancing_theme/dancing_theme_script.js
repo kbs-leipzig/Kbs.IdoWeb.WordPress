@@ -130,7 +130,7 @@ $document.ready(function () {
 	*/
 	(function ($) {
 		console.log("creating figcaption hidden");
-    	var $images = $("figure a img");
+    	var $images = $("figure a img:not(.lazy_dk_image)");
 		$images.each(function() {
 			var $that = $(this);
 			var srcString = $(this).closest("a[href]").attr('href');
@@ -207,11 +207,15 @@ $document.ready(function () {
 						caption.appendChild(desc);
 
 						var lic = "";
-						if (dataObj[i].LicenseName !== null && dataObj[i].LicenseLink !== null) {
-							lic = document.createElement("a");
+						if (dataObj[i].LicenseName !== null) {
+							if(dataObj[i].LicenseLink !== null) {
+								lic = document.createElement("a");
+								lic.setAttribute("href",dataObj[i].LicenseLink);
+								lic.setAttribute("target","_blank");								
+							} else {
+								lic = document.createElement("p");
+							}							
 							lic.innerHTML = "Lizenz: " + dataObj[i].LicenseName;
-							lic.setAttribute("href",dataObj[i].LicenseLink);
-							lic.setAttribute("target","_blank");
 							caption.appendChild(lic);
 						}
 
@@ -1446,8 +1450,8 @@ $document.ready(function () {
 						// build the photoswipe item
 						pswdItem = {
 							src: src,
-							w: parseInt($item.attr('data-width')),
-							h: parseInt($item.attr('data-height')),
+							w: parseInt($item.attr('data-width')*1.5),
+							h: parseInt($item.attr('data-height')*1.5),
 							el: $item, // save link to element for getThumbBoundsFn
 							title: titleStr,
 						};

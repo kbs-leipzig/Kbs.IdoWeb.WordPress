@@ -183,7 +183,22 @@
         });
 
         /*** NODE!!! **/
-        var DKGModel = kendo.data.Node.define({
+        var DescriptionKeyModel = kendo.data.Node.define ({
+			id:"DescriptionKeyId",
+			fields: {
+					DescriptionKeyGroupId: { type: "number", defaultValue: null },
+					KeyName: { type: "string", defaultValue: null },
+					KeyDescription: { type: "string", defaultValue: null },
+					KeyName: { type: "string", defaultValue: null },
+					ListSourceJson: { type: "string", defaultValue: null },
+					DescriptionKeyType: { type: "string", defaultValue: null },
+					TaxonDescription: { type: "string", defaultValue: null },
+					BadgeValue: { type: "number", defaultValue: 0 },
+			},
+			hasChildren: false
+		  });
+		
+		 var DKGModel = kendo.data.Node.define({
             id: "DescriptionKeyGroupId",
             fields: {
                 DescriptionKeyGroupId: { type: "number", defaultValue: null },
@@ -194,10 +209,15 @@
                 //RipValue not in DB - just for sorting
                 RipValue: { type: "number", defaultValue: null },
 				OrderPriority: { type: "number", defaultValue: 2},
-				VisibilityCategoryId: {type: "number", defaultValue: null}
+				VisibilityCategoryId: {type: "number", defaultValue: null},
             },
-            hasChildren: "DescriptionKey",
-            children: "DescriptionKey"
+			hasChildren: "DescriptionKey",
+			children: {
+				schema: {
+					data: "DescriptionKey",
+					model: DescriptionKeyModel
+				}
+			}
         });
 
         var keyGroup_DataSource_full = new kendo.data.HierarchicalDataSource({
@@ -210,6 +230,9 @@
             schema: {
                 model: DKGModel
             },
+			dataBound: function () {
+				console.log("dataBound");
+			},
             change: function (e) {
                 //console.log("keyGroup changed");
             },
@@ -223,12 +246,17 @@
                     var response = e.response;
                     response.forEach(function (it) {
                         //combine all PIC-keys to one
+                        //console.log(it);						
+						//DKG
+						if(it.DescriptionKey) {
+								
+						}
                         if (it.DescriptionKeyGroupDataType == "PIC") {
                             var listSource_arr = new Array();
                             var dkId_arr = new Array();
                             var dk_arr = it.DescriptionKey;
                             var dkgId = it.DescriptionKeyGroupId;
-                            dk_arr.forEach(function (i, x) {
+							dk_arr.forEach(function (i, x) {
                                 var dkName = i.KeyName;
                                 var j_arr = JSON.parse(i.ListSourceJson);
                                 dkId_arr.push(i.DescriptionKeyId);
@@ -262,7 +290,7 @@
             pic_dk_source_map: new Map(),
             pic_dk_keyname_map: new Map(),
             sort: [{ field: "OrderPriority", dir: "asc" },{ field: "RipValue", dir: "asc" },{field: "DescriptionKeyId", dir: "desc"}],
-            filter: { logic: "or", field: "DescriptionKeyGroupDataType", operator: "isnotnull" }
+            filter: { logic: "and", filters:[{field: "DescriptionKeyGroupDataType", operator: "isnotnull"},{field: "DescriptionKey.BadgeValue", operator: "isnotnull"}]}
         });
 
         var keyGroup_DataSource_tabs = new kendo.data.DataSource({
@@ -315,7 +343,7 @@
 				imgName = srcString.split(/[/]+/).pop().split(/[.]+/).shift();
 			} else {
 				imgName = $imgDom.attr('src').split(/[/]+/).pop().split(/[.]+/).shift();
-			}
+		}
 
             $.ajax({
                 cache: false,
@@ -623,7 +651,6 @@
             var selItems = viewModel_dkg_pb.get("selectedItems");
             if (selItems) {
                 for (var f in selItems) {
-					console.log(f);
                     if (selItems.hasOwnProperty(f) && selItems[f].DataType == "TAXLEVEL") {
                         //set dropdown to taxlevel found in selectedItems
                         taxDrop.value(selItems[f].KeyName);
@@ -677,7 +704,6 @@
             if (selectedItems != null) {
                 for (let item in selectedItems) {
                     //selectedItems.forEach(function (item) {
-                    console.log(selectedItems[item]);
                     if (selectedItems[item].DataType == "VALUE") {
                         queryString += "&" + "data_value_" + encodeURIComponent(selectedItems[item].DescriptionKeyId) + "=" + encodeURIComponent(selectedItems[item].DataValue);
                     } else if (selectedItems[item].DataType == "VALUELIST" || selectedItems[item].DataType == "YESNO" || selectedItems[item].DataType == "OPEN VAL" || selectedItems[item].DataType == "UNKNOWN" || selectedItems[item].DataType == "PIC") {
@@ -937,14 +963,14 @@
 
 						if (!this.initBound) {
                             var that = this;
-							console.log(that);
+							//console.log(that);
                             var dataSource = this.dataSource;
                             var data = dataSource.data();
                             if (!this._adding) {
                                 this._adding = true;
 								that.value(dataSource.data()[0]);
-								console.log(dataSource.data()[0]);
-								console.log("###");
+								//console.log(dataSource.data()[0]);
+								//console.log("###");
 								dataSource.data()[0].set("expanded",true);
                                 //that.select(0);
                             }
@@ -1084,9 +1110,9 @@
 									'data': taxName
 								},
 								success: function(response) {
-									console.log(response);
+									//console.log(response);
 									response = response.replace(/[^A-Za-z0-9:/.?=&_]/g, '');
-									console.log(response);
+									//console.log(response);
 									if(response.match(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/g)) {
 										console.log("match");
 										window.open(response, "_blank");
@@ -1537,7 +1563,7 @@
             <script type="text/x-kendo-tmpl" id="filter-detail-template">
                 # if(typeof(isHidden) !== 'undefined') { #
                 # if(!isHidden) { #
-                <div class="filter_flex_item">
+                <div class="filter_flex_item" data-desckeyid="#: DescriptionKeyId #">
                     #if(typeof(DataType) !== 'undefined') {#
                     # if(DataType == "VALUE") {#
                     <div class="filter_info_flex_item">
@@ -2033,7 +2059,7 @@
 										<input 
 											   id="data_value_#=kendo.toString(item.DescriptionKeyId)#"
 											   data-role="numerictextbox"
-											   data-format="n1"
+											   data-format="n0"
 											   data-min="#= g_getSliderValue(item.DescriptionKeyId, false)#"
 											   data-max="#= g_getSliderValue(item.DescriptionKeyId, true)#"
 											   data-desckeyid="#= kendo.toString(item.DescriptionKeyId) #"
@@ -2064,15 +2090,19 @@
 							# } else { #
 							<!-- VALUELIST -->
 							<div data-type="#=dkType#" title="Merkmal auswählen" class="heading_flex_item">
-								<span class="dk_list_item" data-desckeyid="#:item.DescriptionKeyId#">#: item.KeyName #</span>
-								<span class="badge">0</span>
+								<span class="dk_list_item" data-badgevalue="#:item.BadgeValue#" data-desckeyid="#: item.DescriptionKeyId #">#: item.KeyName #</span>
+									# if(item.KeyDescription != null) { #
+										&nbsp;<i title="#:item.KeyDescription#" class="fas fa-info-circle"></i>
+									# } #
+								</span>
+								<span class="badge">#:item.BadgeValue#</span>
 							</div>
 							# } #
 
 							# if(item.ListSourceJson != null) { #
 							# var objList = JSON.parse(item.ListSourceJson); #
 							# if(objList != null) { #
-							#var wrapper_width = parseInt(Math.floor(objList.length/4) * 100)+"%";#
+							# var wrapper_width = parseInt(Math.floor(objList.length/4) * 100)+"%";#
 							<div class="dk_image_flex_item image_#=dkType# wrapper">
 								#if(dkType !== 'PIC') {#
 								# for (var i = 0; i < objList.length; i++) { #
@@ -2211,11 +2241,13 @@
 										_flt = { logic: "and", filters: [] };
 										_flt.filters.push({ field: "DescriptionKeyGroupDataType", operator: "isnotnull" });
 									}
+									console.log("always push original filter additionaly");
 									//always push original filter additionaly
 									_flt.filters.push({ field: "RipValue", operator: "isnotnull" });
+									
 									_fltMain.push(_flt);
 									this.data.query({ filter: _fltMain });
-									this.data.sort({ field: "OrderPriority", dir: "asc" },{ field: "RipValue", dir: "asc" },{field: "DescriptionKeyId", dir: "asc"});
+									this.data.sort({ field: "OrderPriority", dir: "asc" },{ field: "RipValue", dir: "asc" },{field: "DescriptionKey.BadgeValue", dir: "asc"});
 									this.loadVisibleImages();
 									this.updateAllInfo();
 								},
@@ -2308,7 +2340,7 @@
 								updateBadges: function () {
 									var that = this;
 									//hide all dk listitems, show only those with values >= 0
-									$(that.dk_list_item_selector).closest('li.k-item').hide();
+									//$(that.dk_list_item_selector).closest('li.k-item').hide();
 									$(that.dk_list_item_selector).closest('li.k-item').removeClass('k-state-disabled');
 									$(that.dk_pic_list_item_selector).closest('li.k-item').removeClass('k-state-disabled');
 									if (this.badgesList) {
@@ -2316,19 +2348,45 @@
 										this.badgesList.forEach(function (key, val) {
 											$dk_list_item = $(that.dk_list_item_selector + "[data-desckeyid=" + val + "]");
 											$dk_pic_list_item = $(that.dk_pic_list_item_selector + "[data-desckeyid=" + val + "]");
+											
 											$dk_list_item.siblings('.badge').text(key);
 											$dk_list_item.siblings('.datatypePic').find('.badge').text(key);
 											$dk_pic_list_item.siblings('.badge').text(key);
 											$dk_pic_list_item.siblings('.datatypePic').find('.badge').text(key);
+											
+											var dataItem = that.data.getByUid($dk_list_item.closest('li.k-item').data("uid"));
+											
+											if(typeof(dataItem) !== 'undefined') {
+												dataItem.set("BadgeValue", key);													
+											}
+											
+											/*
 											if(key === 0) {
-												console.log("found one: " + $dk_list_item.closest('li.k-item'));
+												console.log("found one: ");
+												console.log($dk_list_item.closest('li.k-item'));
 												$dk_list_item.closest('li.k-item').addClass('k-state-disabled');
 												$dk_pic_list_item.closest('li.k-item').addClass('k-state-disabled');
 											}
-											$dk_list_item.closest('li.k-item').show();
-											$dk_pic_list_item.closest('li.k-item').show();
+											*/
+											
+											//console.log($dk_list_item);
+											//console.log($dk_list_item.closest('li.k-item'));
+											//$dk_list_item.closest('li.k-item').show();
+											//$dk_pic_list_item.closest('li.k-item').show();
 										});
+										
+										that.setSort();
+										
+										$("[data-badgevalue='null']").each(function () {
+											$(this).closest("li.k-item").hide();												
+										});
+											
+										$("[data-badgevalue='0']").each(function () {
+											$(this).closest("li.k-item").addClass("k-state-disabled");
+										});
+										
 									}
+									
 								},
 								updateRipValues: function () {
 									var that = this;
@@ -2363,11 +2421,20 @@
 									this.updateBadges();
 									this.disableZeroDks();
 								},
-								setSort: function setSort(items){
-								  for(var i=0; i < items.length; i++){
-									if(items[i].hasChildren){
-									  items[i].children.sort({field: "DescriptionKeyId", dir: "asc"});										
-									  setSort(items[i].children.view());
+								setSort: function setSort(){
+									var items = $("#dkg_panelbar").data("kendoPanelBar").dataSource.data();
+									//console.log(items);
+								  	for(var i=0; i < items.length; i++){
+
+										if(items[i].hasChildren) {
+												if(items[i].DescriptionKey) {
+													items[i].DescriptionKey.sort(function (a,b) {
+													console.log(a);
+													return b.BadgeValue - a.BadgeValue;
+												});
+													console.log(items[i].DescriptionKey);
+												}
+											items[i].children.sort({field: "BadgeValue", dir: "desc"});
 									} else {
 										//items[i].sort({field: "DescriptionKeyId", dir: "asc"});
 									}
@@ -2390,10 +2457,11 @@
 											//_flt.filters.push({ field: "DescriptionKeyGroupId", operator: "neq", value: item.DescriptionKeyGroupId });
 										});
 
+										//Sorting part for most cases
 										this.data.query({ filter: _flt });
-										this.data.sort([{field: "DescriptionKey.DescriptionKeyId", dir: "asc"},{ field: "VisibilityCategoryId", dir: "desc" },{ field: "OrderPriority", dir: "asc" },{ field: "RipValue", dir: "asc" }]);										
+										this.data.sort([{field: "DescriptionKey.BadgeValue", dir: "asc"},{ field: "VisibilityCategoryId", dir: "desc" },{ field: "OrderPriority", dir: "asc" },{ field: "RipValue", dir: "asc" }]);										
 										//dataSource.view()
-										this.setSort(this.data.view());
+										//this.setSort();
 										//disable description key dom elements
 
 										//iterate all doms - set all active and get desckeyids
@@ -2410,7 +2478,8 @@
 										this.disableZeroDks();
 
 										//collapse all
-										$("#dkg_panelbar").data("kendoPanelBar").collapse($("li", "#dkg_panelbar"));
+										//customer request: dont auto collapse 2021-12-23
+										//$("#dkg_panelbar").data("kendoPanelBar").collapse($("li", "#dkg_panelbar"));
 										//hack to deselect all clicked panel items and only show selected ones -- TODO: find source of error
 										var t = setTimeout(function () {
 											$("#dkg_panelbar_flex_item .dkg_panelbar>li.k-item[role='menuitem'] .k-state-selected").removeClass('k-state-selected');
@@ -2436,9 +2505,11 @@
 								loadVisibleImages: function () {
 									var t = setTimeout(function () {
 										//$("html, body").animate({ scrollTop: $("#taxonResults").offset().top - 200 }, 600, 'swing');
-										var $images = $("#dkg_panelbar_flex_item .dkg_panelbar>li.k-item.k-state-active>ul>li>span>div>div.dk_image_flex_item>figure>a>img.lazy_dk_image");
+										//var $images = $("#dkg_panelbar_flex_item .dkg_panelbar>li.k-item.k-state-active>ul>li>span>div>div.dk_image_flex_item>figure>a>img.lazy_dk_image");
+										var $images = $("#dkg_panelbar_flex_item .dkg_panelbar>li.k-item.k-state-active img.lazy_dk_image");
 										$images.each(function () {
 											g_preloadImage($(this)[0]);
+											g_setImgCaption($(this)[0]);
 										});
 									}, 300);
 								},
@@ -2480,14 +2551,18 @@
 									/** DESCKEY CLICKED */
 									if (typeof (panelBar.dataItem($(e.item)).KeyGroupName) == 'undefined') {
 										qFilter.DataType = g_getDataTypeByDKGId(panelBar.dataItem($(e.item)).DescriptionKeyGroupId);
-
-										//VALUE handled by input change event in onChangeDkValue
-										if (qFilter.DataType == "VALUE" || qFilter.DataType == "PIC") {
+										
+										let dkId = panelBar.dataItem($(e.item)).DescriptionKeyId;
+										if($("span.dk_list_item[data-desckeyid="+dkId+"]").closest("span.k-link").hasClass("state-selected-steady")) {
+											$("div.filter_flex_item[data-desckeyid="+dkId+"]").find("a.k-button.k-delete-button").trigger("click");
+											return false;
+										} else if (qFilter.DataType == "VALUE" || qFilter.DataType == "PIC") {
 											e.preventDefault();
 											panelBar.dataItem($(e.item)).selected = false;
 											$(".k-state-selected", e.item).removeClass("k-state-selected k-state-focused");
 											return;
 										}
+										
 										text = panelBar.dataItem($(e.item)).KeyName;
 
 										qFilter.KeyName = text;
@@ -2518,6 +2593,9 @@
 								dataBound: function (e) {
 								},
 								onBind: function () {
+									console.log("on bind");
+									console.log(this.data);
+									this.setSort();
 									g_initDetermination();
 								}
 							});

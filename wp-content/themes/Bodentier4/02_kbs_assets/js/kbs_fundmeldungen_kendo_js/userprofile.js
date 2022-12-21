@@ -68,12 +68,16 @@ $(document).ready(function () {
 		});
 		self.updateUser = function () {
 			if (validator.validate()) {
+				console.log(self);
+				var dataRestrictionIdParam = self.DataRestrictionId.value;
+				var selfCopy = self;
+				selfCopy.set("DataRestrictionId", dataRestrictionIdParam);
 				$.ajax({
 					url: serviceRoot + "/UserProfile/UpdateUser",
 					contentType: "application/json; charset=utf-8",
 					dataType: "json",
 					method: "POST",
-					data: JSON.stringify(self),
+					data: JSON.stringify(selfCopy),
 					crossDomain: true,
 					xhrFields: { withCredentials: true },
 					success: function (result) {

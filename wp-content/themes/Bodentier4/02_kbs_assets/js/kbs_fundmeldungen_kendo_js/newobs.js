@@ -87,10 +87,22 @@ $(document).ready(function () {
 
 	/* Aktualisierung Fundort */
 	function locality_onSelect(e) {
-		var item = this.dataItem(e.item.index());
-		setPositionFields(item.Lat, item.Lon);
+		var item = this.dataItem(e.item.index());		
 		var map = $("#map").data("kendoMap");
+		console.log(item);
+		console.log(map);
+		console.log(map.markers);
+		map.markers.clear();
 		map.center([item.Lat, item.Lon]).zoom(item.Order == 3 ? 13 : 12);
+		map.markers.add({
+			location: [item.Lat, item.Lon],
+			tooltip: {
+				content: "Fundort"
+			}
+		});
+		setPositionFields(item.Lat, item.Lon);
+		//Set Marker
+		
 	}
 	function setPositionFields(lat, lon) {
 		vm.set("LatitudeDecimal", lat);
@@ -179,7 +191,7 @@ $(document).ready(function () {
 			key: "Ao6t2AoyERNdB5Vn8O9j7UkVa65GKdBkAFXa5rB-CMym6RMQRIaRn2e9HrFqWyFt"
 		}],
 		markerActivate: function (e) {
-			$(e.marker.element.context).css("color", "orange")
+			$(e.marker.element.context).css("color", "rgb(210, 213, 110)")
 		},
 		pan: function (e) {
 			panning = true;
@@ -944,8 +956,10 @@ function onRemove(e) {
 	function saveLocality() {
 		self = this;
 		if ($("#observationPlaceholder").html()) {
-			showMsg(obsStatus, "Bitte schließe zunächst die offene Fundmeldung ab.", false);
-		} else {
+			showMsg(obsStatus, "Fundmeldung wird hinzugefügt.", false);
+			addObsToList();
+		}
+		
 			if (self.ObservationList.length != 0) {
 				var optimisedDS = optimiseDataStructure(self);
 
@@ -986,7 +1000,6 @@ function onRemove(e) {
 				//or: save only Event?
 				return true;
 			}
-		}
 	}
 	
 	/**Helper to move uploaded images**/
